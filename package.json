@@ -29,7 +29,7 @@
     "@strapi/provider-upload-aws-s3": "^5.20.0",
     "@strapi/strapi": "5.20.0",
     "better-sqlite3": "11.3.0",
-    "react": "^18.0.0",
+    "react": "^19.1.1",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
     "styled-components": "^6.0.0"
@@ -37,7 +37,7 @@
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "^19",
     "@types/react-dom": "^18",
     "@types/supertest": "^6.0.3",
     "jest": "^30.0.5",
