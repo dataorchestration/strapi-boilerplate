@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  strapi:
+    build: .
+    container_name: ${APP_NAME:-strapi-boilerplate}
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT:-sqlite}
+      DATABASE_HOST: ${DATABASE_HOST:-strapi-db}
+      DATABASE_PORT: ${DATABASE_PORT:-5432}
+      DATABASE_NAME: ${DATABASE_NAME:-strapi}
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-strapi}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-strapi}
+      JWT_SECRET: ${JWT_SECRET:-changeme}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:-changeme}
+      APP_KEYS: ${APP_KEYS:-changeme}
+      API_TOKEN_SALT: ${API_TOKEN_SALT:-changeme}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT:-changeme}
+      HOST: ${HOST:-0.0.0.0}
+      PORT: ${PORT:-1337}
+      NODE_ENV: ${NODE_ENV:-development}
+    volumes:
+      - ./config:/app/config
+      - ./src:/app/src
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      - uploads:/app/public/uploads
+    ports:
+      - '${PORT:-1337}:1337'
+    depends_on:
+      - strapi-db
+    networks:
+      - strapi-network
+
+  strapi-db:
+    image: postgres:15-alpine
+    container_name: ${APP_NAME:-strapi-boilerplate}-db
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME:-strapi}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-strapi}
+      POSTGRES_DB: ${DATABASE_NAME:-strapi}
+    volumes:
+      - strapi-data:/var/lib/postgresql/data
+    ports:
+      - '${DATABASE_PORT:-5432}:5432'
+    networks:
+      - strapi-network
+
+volumes:
+  strapi-data:
+  uploads:
+
+networks:
+  strapi-network:
+    driver: bridge
