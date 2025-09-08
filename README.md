@@ -150,7 +150,7 @@ npm run test:coverage # Run tests with coverage report
 ### Test Structure
 - `tests/setup.ts` - Test environment setup
 - `tests/health.test.ts` - Health check tests
-- `tests/auth.test.ts` - Authentication tests
+- `tests/auth.test.js` - Authentication tests
 
 ## AWS S3 Media Management
 
