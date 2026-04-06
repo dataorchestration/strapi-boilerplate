@@ -3,17 +3,16 @@ export default ({ env }) => ({
     config: {
       provider: 'aws-s3',
       providerOptions: {
-        credentials: {
-          accessKeyId: env('AWS_ACCESS_KEY_ID'),
-          secretAccessKey: env('AWS_SECRET_ACCESS_KEY'),
+        s3Options: {
+          credentials: {
+            accessKeyId: env('AWS_ACCESS_KEY_ID'),
+            secretAccessKey: env('AWS_SECRET_ACCESS_KEY'),
+          },
+          region: env('AWS_REGION', 'ap-south-1'),
+          params: {
+            Bucket: env('AWS_S3_BUCKET'),
+          },
         },
-        region: env('AWS_REGION', 'us-east-1'),
-        params: {
-          Bucket: env('AWS_S3_BUCKET'),
-        },
-        ...(env('AWS_S3_ENDPOINT') && {
-          endpoint: env('AWS_S3_ENDPOINT'),
-        }),
       },
       actionOptions: {
         upload: {},
